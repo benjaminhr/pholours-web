@@ -1,0 +1,24 @@
+{
+  "name": "pholours-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "dev": "parcel index.html --port 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminhr/pholours-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminhr/pholours-web/issues"
+  },
+  "homepage": "https://github.com/benjaminhr/pholours-web#readme",
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
+}
