@@ -196,7 +196,8 @@
     }
 
     function drawColours(image) {
-        const palette = colorThief.getPalette(image, colorBoxes.length);
+        const colourCount = colorBoxes.length === 1 ? 2 : colorBoxes.length;
+        const palette = colorThief.getPalette(image, colourCount);
         const extendedPalette = extendPalette(palette);
         let rgbColours = [];
         const displayType = getDisplayType();
@@ -231,7 +232,6 @@
 
             // Make sure image is finished loading
             if (photo.complete) {
-                console.log("called in complete");
                 drawColours(photo);
             } else {
                 photo.addEventListener("load", function () {
