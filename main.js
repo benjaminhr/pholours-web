@@ -22,6 +22,7 @@
     let colorBox = null;
     let colorBoxes = null;
     let boxCountInput = null;
+    let downloadButton = null;
 
     function createColorBoxes(count = 10) {
         colorBox.innerHTML = "";
@@ -32,6 +33,19 @@
         }
 
         return document.querySelectorAll(".box");
+    }
+
+    function makeid(length) {
+        let result = "";
+        const characters =
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(
+                Math.floor(Math.random() * charactersLength)
+            );
+        }
+        return result;
     }
 
     function showViewLiveResultButton() {
@@ -59,6 +73,7 @@
         colorBox = document.querySelector(".colorBox");
         colorBoxes = createColorBoxes();
         boxCountInput = document.getElementById("boxCount");
+        downloadButton = document.getElementById("download");
 
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: false })
@@ -102,6 +117,17 @@
             if (newCount != colorBox.childElementCount) {
                 colorBoxes = createColorBoxes(newCount);
             }
+        });
+
+        downloadButton.addEventListener("click", async () => {
+            // TODO DEBOUNCE
+            domtoimage.toJpeg(colorBox, { quality: 0.95 }).then((dataUrl) => {
+                const filename = `pholours-${makeid(5)}.png`;
+                const link = document.createElement("a");
+                link.setAttribute("download", filename);
+                link.setAttribute("href", dataUrl);
+                link.click();
+            });
         });
 
         setInterval(() => {
