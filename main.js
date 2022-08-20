@@ -184,10 +184,28 @@
             });
     }
 
+    function getDisplayType() {
+        const defaultDisplayType = "sort";
+        const displayTypeInput = document.querySelector(
+            'input[name="displayType"]:checked'
+        );
+        const displayType = displayTypeInput
+            ? displayTypeInput.value
+            : defaultDisplayType;
+        return displayType;
+    }
+
     function drawColours(image) {
         const palette = colorThief.getPalette(image, colorBoxes.length);
         const extendedPalette = extendPalette(palette);
-        const rgbColours = sort(extendedPalette);
+        let rgbColours = [];
+        const displayType = getDisplayType();
+
+        if (displayType === "sort") {
+            rgbColours = sort(extendedPalette);
+        } else if (displayType === "shuffle") {
+            rgbColours = shuffle(extendedPalette);
+        }
 
         colorBoxes.forEach((box, index) => {
             const rgbString = rgbColours[index].join(", ");
