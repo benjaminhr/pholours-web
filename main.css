@@ -4,11 +4,23 @@ body {
     padding: 0;
 }
 
+input {
+    outline: none;
+}
+
+
 .colorBox {
     width: 100vw;
     height: 100vh;
-    transition: background 1000ms ease-in;
-    background: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.colorBox .box {
+    height: 100vh;
+    width: 100vw;
+    transition: all 400ms ease-out;
+    margin: 0.5px;
 }
 
 #canvas,
@@ -18,9 +30,24 @@ body {
 
 video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 500px;
-    width: 500px;
+    top: 94%;
+    left: 96%;
+    transform: translate(-95%, -95%);
+    /* height: 500px;
+    width: 500px; */
+
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    border-radius: 8px;
+}
+
+#boxCount {
+    position: absolute;
+    top: 70%;
+    left: 97%;
+    transform: translate(-97%, -70%);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    border-radius: 8px 8px 0px 0px;
+    border: none;
+    height: 35px;
+    width: 50px;
 }

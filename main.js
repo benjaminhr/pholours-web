@@ -20,6 +20,19 @@
     let canvas = null;
     let photo = null;
     let colorBox = null;
+    let colorBoxes = null;
+    let boxCountInput = null;
+
+    function createColorBoxes(count = 10) {
+        colorBox.innerHTML = "";
+        for (let i = 0; i < count; i++) {
+            const box = document.createElement("div");
+            box.classList.add("box");
+            colorBox.appendChild(box);
+        }
+
+        return document.querySelectorAll(".box");
+    }
 
     function showViewLiveResultButton() {
         if (window.self !== window.top) {
@@ -44,6 +57,8 @@
         canvas = document.getElementById("canvas");
         photo = document.getElementById("photo");
         colorBox = document.querySelector(".colorBox");
+        colorBoxes = createColorBoxes();
+        boxCountInput = document.getElementById("boxCount");
 
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: false })
@@ -78,6 +93,17 @@
             false
         );
 
+        boxCountInput.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter") {
+                return;
+            }
+
+            const newCount = event.target.value;
+            if (newCount != colorBox.childElementCount) {
+                colorBoxes = createColorBoxes(newCount);
+            }
+        });
+
         setInterval(() => {
             takepicture();
         }, 1000);
@@ -92,21 +118,43 @@
         photo.setAttribute("src", data);
     }
 
-    function sortRgb(rgbColours) {
+    function extendPalette(palette) {
+        const rgbColours = [];
+
+        for (let index = 0; index < colorBoxes.length; index++) {
+            const paletteIndex =
+                index >= palette.length ? index % palette.length : index;
+            const rgbColor = palette[paletteIndex] || [];
+            rgbColours.push(rgbColor);
+        }
+
+        return rgbColours;
+    }
+
+    function shuffle(palette) {
+        for (let i = palette.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [palette[i], palette[j]] = [palette[j], palette[i]];
+        }
+
+        return palette;
+    }
+
+    function sort(palette) {
         const rgbToHsl = (c) => {
-            var r = c[0] / 255,
+            let r = c[0] / 255,
                 g = c[1] / 255,
                 b = c[2] / 255;
-            var max = Math.max(r, g, b),
+            let max = Math.max(r, g, b),
                 min = Math.min(r, g, b);
-            var h,
+            let h,
                 s,
                 l = (max + min) / 2;
 
             if (max == min) {
                 h = s = 0; // achromatic
             } else {
-                var d = max - min;
+                let d = max - min;
                 s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
                 switch (max) {
                     case r:
@@ -124,36 +172,27 @@
             return new Array(h * 360, s * 100, l * 100);
         };
 
-        return rgbColours
+        return palette
             .map((c, i) => {
-                // Convert to HSL and keep track of original indices
                 return { color: rgbToHsl(c), index: i };
             })
             .sort((c1, c2) => {
-                // Sort by hue
-                return c1.color[0] - c2.color[0];
+                return c1.color[2] - c2.color[2];
             })
             .map((data) => {
-                // Retrieve original RGB color
-                return rgbColours[data.index];
+                return palette[data.index];
             });
     }
 
     function drawColours(image) {
-        const palette = colorThief.getPalette(image);
-        const sortedRgbs = sortRgb(palette);
-        const arrayRgbToString = sortedRgbs
-            .map((rgb) => {
-                // const percent = 100 / palette.length;
-                return `rgb(${rgb.join(",")})`;
-            })
-            .join(", ");
+        const palette = colorThief.getPalette(image, colorBoxes.length);
+        const extendedPalette = extendPalette(palette);
+        const rgbColours = sort(extendedPalette);
 
-        // const gradient = `linear-gradient(90deg, ${arrayRgbToString})`;
-        const gradient = `linear-gradient(to right, ${arrayRgbToString})`;
-
-        colorBox.style.background = "none";
-        colorBox.style.background = gradient;
+        colorBoxes.forEach((box, index) => {
+            const rgbString = rgbColours[index].join(", ");
+            box.style.backgroundColor = `rgb(${rgbString})`;
+        });
     }
 
     // Capture a photo by fetching the current contents of the video
