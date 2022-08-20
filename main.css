@@ -1,0 +1,26 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.colorBox {
+    width: 100vw;
+    height: 100vh;
+    transition: background 1000ms ease-in;
+    background: none;
+}
+
+#canvas,
+.camera-video {
+    display: none;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    width: 500px;
+}
