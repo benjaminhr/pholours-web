@@ -2,6 +2,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 input {
@@ -28,26 +29,33 @@ input {
     display: none;
 }
 
-video {
+.overlay {
     position: absolute;
     top: 94%;
     left: 96%;
     transform: translate(-95%, -95%);
-    /* height: 500px;
-    width: 500px; */
+    display: flex;
+    flex-direction: column;
+}
 
+video {
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.options {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+    border-radius: 0px 0px 8px 8px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 #boxCount {
-    position: absolute;
-    top: 70%;
-    left: 97%;
-    transform: translate(-97%, -70%);
-    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-    border-radius: 8px 8px 0px 0px;
     border: none;
     height: 35px;
     width: 50px;
+    text-indent: 11px;
 }

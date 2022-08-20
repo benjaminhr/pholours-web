@@ -13,8 +13,21 @@
     <div class="camera-video">
         <img id="photo" alt="The screen capture will appear in this box.">
     </div>
-    <video id="video">Video stream not available.</video>
-    <input type="number" id="boxCount" min="0" max="500" />
+
+    <div class="overlay">
+        <video id="video">Video stream not available.</video>
+
+        <div class="options">
+            <input type="number" id="boxCount" min="0" max="500" name="boxCount" value="20" autofocus />
+            <label for="boxCount">count</label>
+
+            <input type="radio" id="sort" name="displayType" value="sort">
+            <label for="sort">sort</label>
+            <input type="radio" id="randomise" name="displayType" value="randomise">
+            <label for="randomise">randomise</label>
+        </div>
+    </div>
+
     <canvas id="canvas"></canvas>
     <div class="colorBox"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.min.js"></script>
