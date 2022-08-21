@@ -130,18 +130,13 @@
             });
         });
 
+        photo.addEventListener("load", () => {
+            drawColours(photo);
+        });
+
         setInterval(() => {
             takepicture();
         }, 1000);
-    }
-
-    function clearphoto() {
-        const context = canvas.getContext("2d");
-        context.fillStyle = "#AAA";
-        context.fillRect(0, 0, canvas.width, canvas.height);
-
-        const data = canvas.toDataURL("image/png");
-        photo.setAttribute("src", data);
     }
 
     function extendPalette(palette) {
@@ -256,16 +251,12 @@
             const data = canvas.toDataURL("image/png");
             photo.setAttribute("src", data);
 
+            // console.log("called take picture");
+
             // Make sure image is finished loading
             if (photo.complete) {
                 drawColours(photo);
-            } else {
-                photo.addEventListener("load", function () {
-                    drawColours(photo);
-                });
             }
-        } else {
-            clearphoto();
         }
     }
 
