@@ -10,6 +10,18 @@ input {
     outline: none;
 }
 
+#mobile {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    font-weight: bold;
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
+}
 
 .colorBox {
     width: 100vw;
