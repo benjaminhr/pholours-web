@@ -1,19 +1,9 @@
-// The width and height of the captured photo. We will set the
-// width to the value defined here, but the height will be
-// calculated based on the aspect ratio of the input stream.
-
 const colorThief = new ColorThief();
 
-const width = 320; // We will scale the photo width to this
-let height = 0; // This will be computed based on the input stream
-
-// |streaming| indicates whether or not we're currently streaming
-// video from the camera. Obviously, we start at false.
+const width = 320; 
+let height = 0;
 
 let streaming = false;
-
-// The various HTML elements we need to configure or control. These
-// will be set by the startup() function.
 
 let video = null;
 let canvas = null;
@@ -49,9 +39,6 @@ function makeid(length) {
 
 function showViewLiveResultButton() {
     if (window.self !== window.top) {
-        // Ensure that if our document is in a frame, we get the user
-        // to first open it in its own tab or window. Otherwise, it
-        // won't be able to request permission for camera access.
         document.querySelector(".contentarea").remove();
         const button = document.createElement("button");
         button.textContent = "View live result of the example code above";
@@ -92,7 +79,6 @@ function startup() {
 
                 // Firefox currently has a bug where the height can't be read from
                 // the video, so we will make assumptions if this happens.
-
                 if (isNaN(height)) {
                     height = width / (4 / 3);
                 }
@@ -234,12 +220,6 @@ function drawColours(image) {
     });
 }
 
-// Capture a photo by fetching the current contents of the video
-// and drawing it into a canvas, then converting that to a PNG
-// format data URL. By drawing it on an offscreen canvas and then
-// drawing that to the screen, we can change its size and/or apply
-// other changes before drawing it.
-
 function takepicture() {
     const context = canvas.getContext("2d");
     if (width && height) {
@@ -250,9 +230,6 @@ function takepicture() {
         const data = canvas.toDataURL("image/png");
         photo.setAttribute("src", data);
 
-        // console.log("called take picture");
-
-        // Make sure image is finished loading
         if (photo.complete) {
             drawColours(photo);
         }
