@@ -1,6 +1,6 @@
 const colorThief = new ColorThief();
 
-const width = 320; 
+const width = 320;
 let height = 0;
 
 let streaming = false;
@@ -20,7 +20,6 @@ function createColorBoxes(count = 10) {
         box.classList.add("box");
         colorBox.appendChild(box);
     }
-
     return document.querySelectorAll(".box");
 }
 
