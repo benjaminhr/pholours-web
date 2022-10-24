@@ -52,6 +52,7 @@ function startup() {
     if (showViewLiveResultButton()) {
         return;
     }
+
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     photo = document.getElementById("photo");
@@ -104,7 +105,6 @@ function startup() {
     });
 
     downloadButton.addEventListener("click", async () => {
-        // TODO DEBOUNCE
         domtoimage.toJpeg(colorBox, { quality: 0.95 }).then((dataUrl) => {
             const filename = `pholours-${makeid(5)}.png`;
             const link = document.createElement("a");
