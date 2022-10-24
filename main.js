@@ -1,3 +1,8 @@
+/*
+
+    A lot of dodgy code, proceed with care
+
+*/
 const colorThief = new ColorThief();
 
 const width = 320;
