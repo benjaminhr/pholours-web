@@ -52,6 +52,7 @@ function startup() {
     if (showViewLiveResultButton()) {
         return;
     }
+
     video = document.getElementById("video");
     canvas = document.getElementById("canvas");
     photo = document.getElementById("photo");
