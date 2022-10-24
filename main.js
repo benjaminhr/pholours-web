@@ -178,15 +178,9 @@ function sort(palette) {
     };
 
     return palette
-        .map((c, i) => {
-            return { color: rgbToHsl(c), index: i };
-        })
-        .sort((c1, c2) => {
-            return c1.color[2] - c2.color[2];
-        })
-        .map((data) => {
-            return palette[data.index];
-        });
+        .map((c, i) => ({ color: rgbToHsl(c), index: i }))
+        .sort((c1, c2) => c1.color[2] - c2.color[2])
+        .map((data) => palette[data.index]);
 }
 
 function getDisplayType() {
